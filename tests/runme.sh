@@ -19,7 +19,7 @@ echo
 echo "Converting neurons to Cartesian. Output in cart_water/dbq_traj-cart.xyz"
 echo 
 
-../bin/toCart.py  nm_water/dbq  nm_water/cnorm.dat  nm_water/mass.dat  nm_water/qrt.dat  cart_water/dbq_traj-cart.xyz
+../bin/toCart.py  nm_water/dbq-traj.dat  nm_water/cnorm.dat  nm_water/mass.dat  nm_water/qrt.dat  cart_water/dbq_traj-cart.xyz
 
 # NGas with Cartesian coordinates (not recommanded but works ok)
 echo
