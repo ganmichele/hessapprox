@@ -41,7 +41,7 @@ source ~/.bashrc
 or install the modules in a location available to your PYTHONPATH.
 
 ## Testing the methods
-To test our programs:
+To test our programs you do not have to add hessapprox to your PYTHONPATH:
 ```
 cd tests/
 ./runme.sh
