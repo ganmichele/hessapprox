@@ -1,0 +1,7 @@
+*.so
+*.o
+*.mod
+*.x
+*.exe
+*.swp
+*__pycache__*
