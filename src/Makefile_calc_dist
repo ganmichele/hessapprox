@@ -1,0 +1,17 @@
+comp	=f2py
+fc	=gfortran
+myflgs	=--opt='-O3'
+name	=calc_dist
+tdir	=../hessapprox
+
+src = calc_dist.f90
+
+compile: $(obj)
+	$(comp) --fcompiler=$(fc) -c $(src) $(myflgs) -m $(name)
+
+install:
+	install $(name).* $(tdir)
+
+.clean:
+	rm -f *.o *.exe *.x *.mod *.so
+
