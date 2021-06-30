@@ -10,7 +10,7 @@ compile: $(obj)
 	$(comp) --fcompiler=$(fc) -c $(src) $(myflgs) -m $(name)
 
 install:
-	install $(name).* $(tdir)
+	install $(name).*.so $(tdir)
 
 .clean:
 	rm -f *.o *.exe *.x *.mod *.so

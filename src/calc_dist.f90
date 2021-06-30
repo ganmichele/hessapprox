@@ -24,7 +24,6 @@
     real*8 , intent(out)                :: Dmat( na,nb)
 
     integer     :: i, j
-    real*8      :: dvec( m)
 
     interface 
         function pair_distance( n, a, b, dist_measure) result( d)          !
@@ -43,8 +42,6 @@
     if ( same ) then ! all( xa==xb)
         do i=1  ,na
         do j=i+1,nb
-            !dvec      = xa(i,:) - xa(j,:)
-            !Dmat(i,j) = dsqrt( dot_product( dvec, dvec))
             Dmat(i,j) = pair_distance( m, xa(i,:), xb(j,:), dist_measure)
             Dmat(j,i) = Dmat(i,j)
         enddo
@@ -52,8 +49,6 @@
     else
         do i=1,na
         do j=1,nb
-            !dvec      = xa(i,:) - xb(j,:)
-            !Dmat(i,j) = dsqrt( dot_product( dvec, dvec))
             Dmat(i,j) = pair_distance( m, xa(i,:), xb(j,:), dist_measure)
         enddo
         enddo
@@ -93,7 +88,7 @@
 
 program test_dist
 
-integer         :: i,j,k
+integer         :: i,j
 integer, parameter      :: na=3, nb=4, m=2
 real*8          :: xa(na, m), xb(nb, m), Dmat(na,nb)
 
