@@ -2,6 +2,7 @@
 """
 Update Hessian matrix according to Bofill's method.
 Michele Gandolfi 2021
+
 as in
 Gandolfi M, Ceotto M. title . paper . 2021
 """

@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 """
 DBH method for Hessian matrix approximation along MD trajectories
+
+Michele Gandolfi 2021
 """
 
 import numpy as np
@@ -131,24 +133,5 @@ class DBH():
 
 
 if __name__ == '__main__':
-    from PES.PES_CLASS import PES
-    from PES import vmd
-
-    Pes = PES( mol='h2o')
-    atoms, xyz = vmd.read_vmd( '../H2O_eq.xyz')
-    freq, Cmat, qvib, qrt = Pes.normal_modes( atoms, xyz)
-    DB = DBH( Pes=Pes)
-    traj = np.genfromtxt( '../H2O_NMq.dat')[:3000]
-    DB.createDB( traj, thr=2.0, how='fromgrad', NM=True)
-
-    # Computing DBH hessians
-    #breakpoint()
-    DB.DBH = [Pes.hessian( q, how='fromgrad', NM=True) for q in DB.DBq]
-
-    Hessarr = np.array( [Pes.hessian( q, how='fromgrad', NM=True) for q in traj])
-    error = 0.0
-    for i, dbh in enumerate( DB.DBH):
-        for j, r in enumerate( DB.relations[i]):
-            error += abs( dbh - Hessarr[r]).sum()
-    print( error)
-
+    print( 'Nothing to do')
+    pass

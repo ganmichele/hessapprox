@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 """
 Read write and interpret coordinates files in xyz format
+
+Michele Gandolfi 2021
 """
 
 import numpy as np
@@ -98,19 +100,5 @@ def write_xyz( fname, xyz, atoms, append=False):
             
 
 if __name__ == '__main__':
-    import os
-    atoms, xyz = read_xyz( 'formaldehyde.xyz')
-    print( atoms)
-    print( xyz)
-    fname = 'HCOH.xyz'
-    write_xyz( fname, xyz, atoms)
-    print( '\nCheck file "{0}" with xyz'.format( fname))
-    print( '\n\nReading trajectory xyz file...')
-    fname = 'traj.xyz'
-    if os.path.isfile( 'traj.xyz'):
-        atoms, xyz = read_xyz( fname, traj=True)
-        print( atoms)
-        print( xyz[-1,:])
-        fname = 'traj_written.xyz'
-        write_xyz( fname, xyz, atoms)
-        print( '\nCheck file "{0}" with xyz'.format( fname))
+    print( 'Nothing to do')
+    pass

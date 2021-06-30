@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 """
 Ngas and Self-Organizing Maps (SOMs)
+
+Michele Gandolfi 2021
 """
 import numpy as np
 import sys
