@@ -16,11 +16,12 @@ the hessian update methods ...</br>
 ## Installation requirements
 To run the codes you need:
 
-- Python3.6+
+- Python3.7+
 - numpy (recommended 1.17.4+)
 - scipy (optional, recommended 1.3.3+)
 - f2py and a reasonably recent gfortran compiler (optional)
 - matplotlib (optional, for the optional animation, recommended 3.1.2+)
+- ffmpeg (optional, only for the animation, recommended 4.2.4+)
 
 ### (Optional) Fortran distance matrix calculator
 Most of the code is written in Python, however, optionally, you can
@@ -58,7 +59,7 @@ To test our programs you do not have to add hessapprox to your PYTHONPATH:
 cd tests/
 ./runme.sh
 ./runme2.sh
-./voronoi.py
+./movie.py
 ```
 runme.sh writes the trajectory files
 - cartesian_water/neurons_traj-cart.xyz
@@ -70,7 +71,7 @@ You may want to visualize them together (for instance with VMD).
 runme2.sh writes the approximate hessian matrix in
 cart_water/h2o_approx.dat
 
-to run voronoi.py you need the optional packages scipy and matplotlib.
+to run movie.py you need the optional packages scipy and matplotlib.
 It generates a movie that shows a NGas optimization for H2O in 2 dimensions.
 
 ## Programs usage
