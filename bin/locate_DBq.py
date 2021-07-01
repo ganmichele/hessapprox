@@ -121,7 +121,7 @@ else:
     np.savetxt( args.output, dbq_traj)
 
 if args.DBq_traj:
-    # assign trajectory points to nearest neuron (Best Matching Unit or BMU):
+    # assign trajectory points to nearest DBq (Best Matching Unit or BMU):
     #bmus = np.array( [e for l in DB.relations.values() for e in l])
     bmus = np.zeros( len( xyz)).astype( int)
     for k in DB.relations.keys():

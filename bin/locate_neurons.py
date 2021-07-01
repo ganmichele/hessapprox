@@ -18,7 +18,7 @@ try:
 except Exception as e1:
     #print( 'Could not properly import hessapprox package. Received error with exception\n{0}'.format( e1))
     print( 'Assuming module is in ../hessapprox/. Trying to add to sys.path..')
-    sys.path.append( '../')
+    sys.path.append( '..')
     try:
         from hessapprox.Ngas import ngas
         from hessapprox import xyzfile

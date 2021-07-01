@@ -17,7 +17,7 @@ try:
     from hessapprox import xyzfile
 except Exception as e1:
     print( 'Assuming module is in ../hessapprox/. Trying to add to sys.path..')
-    sys.path.append( '../')
+    sys.path.append( '..')
     try:
         from hessapprox.hessian_updt import fill_in_H
         from hessapprox import xyzfile
