@@ -14,7 +14,7 @@ try:
     from hessapprox.Ngas import ngas
 except Exception as e1:
     print( 'Assuming module is in ../hessapprox/. Trying to add to sys.path..')
-    sys.path.append( '../')
+    sys.path.append( '..')
     try:
         from hessapprox.Ngas import ngas
     except Exception as e:
