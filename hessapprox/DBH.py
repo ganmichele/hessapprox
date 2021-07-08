@@ -72,21 +72,31 @@ class DBH():
             D = set_point_distance( self.DBq, x, p=self.p)
 
         if np.any( D < self.thr):
+            self._who = np.argmin( D)
             return True
         else:
             return False
 
-    def updateDB( self, x, H=None, **pes_args):
+    def updateDB( self, x, xid=0, H=None, **pes_args):
         """
         Update DBq and, possibly DBH
         """
-        self.DBq.append( x)
-        if hasattr( self, 'Pes') and H == 'compute':
-            H = self.Pes.hessian( x, **pes_args)
-        elif H is not None:
-            self.DBH.append( H)
+        if not self._inDB( x):
+            self.relations[len( self.DBq)] = [xid,]
+            self.DBq.append( x)
+            if hasattr( self, 'Pes') and H == 'compute':
+                H = self.Pes.hessian( x, **pes_args)
+            elif H is not None:
+                self.DBH.append( H)
+        else:
+            self.relations[self._who].append( xid)
             
-    def createDB( self, data, thr=5.0, dist_measure='th', dohess=None, **pes_args):
+    def createDB(  self, data
+                  ,thr=5.0
+                  ,dist_measure='th'
+                  ,dohess=None
+                  ,bestrel=True
+                  ,**pes_args):
         """
         Fill in the DB all the geometries so that none is further than "thr"
         from all points in the database
@@ -103,13 +113,16 @@ class DBH():
         else: # assuming theta (minkowski p=infty distance)
             self.p = -1 if 'scipy' not in sys.modules else np.infty
 
-        for x in data:
-            if not self._inDB( x):
-                self.updateDB( x, H=dohess, **pes_args)
+        for xid, x in enumerate( data):
+            self.updateDB( x, xid=xid, H=dohess, **pes_args)
 
-        self.update_relations()
+        if bestrel:
+            self.update_relations()
 
     def update_relations( self):
+        """
+        Wipe down current relations and create new ones
+        """
         #dist_q_DBq = set_set_distance( np.array( self.DBq), 
         #                               np.array( self.data_input))
         self.relations = {k: [] for k in range( len( self.DBq))}

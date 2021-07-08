@@ -36,9 +36,10 @@ parser = argparse.ArgumentParser(
 # TRAJECTORY INPUT
 parser.add_argument( 'trajectory' ,help='trajectory positions as a (multiple) space-separated values file (one position per line)')
 
-# DBH GAS PARAMETER
+# DBH PARAMETER
 parser.add_argument( '-R', '--rho', default=1.0, help='sphere radius', type=float)
 parser.add_argument( '--dist'     , default=None,help='custom distance function (NOT YET IMPLEMENTED)')
+parser.add_argument( '--quick'  , action='store_true',help='skip final relations update (slightly faster but less accurate)')
 
 # WHICH POINTS AND DEGREES OF FREEDOM YOU WANT TO CONSIDER
 parser.add_argument( '-i', '--indexes'   ,default=['all'] ,nargs='+' ,help='indexes of trajectory to consider')
@@ -105,9 +106,12 @@ stationary_coor = xyz[:,not_varindex]
 if args.var_indexes[0] != 'all':
     xyz = xyz[:,varindex]
 
+# update trajectory DBq distance relationships?
+bestrel = not args.quick
+
 # CREATE DBq 
 DB = DBH()
-DB.createDB( xyz, thr=args.rho)
+DB.createDB( xyz, thr=args.rho, bestrel=bestrel)
 dbq_traj = np.array( DB.DBq)
 
 # WRITE RESULTS
@@ -120,12 +124,17 @@ if args.xyz:
 else:
     np.savetxt( args.output, dbq_traj)
 
+bmus = np.zeros( len( xyz), dtype=int)
+for k in DB.relations.keys():
+    bmus[DB.relations[k]] = int( k)
+np.savetxt( 'relations_DBq.dat', bmus, fmt='%i')
+
 if args.DBq_traj:
     # assign trajectory points to nearest DBq (Best Matching Unit or BMU):
     #bmus = np.array( [e for l in DB.relations.values() for e in l])
-    bmus = np.zeros( len( xyz)).astype( int)
-    for k in DB.relations.keys():
-        bmus[ DB.relations[k]] = k
+    #bmus = np.zeros( len( xyz)).astype( int)
+    #for k in DB.relations.keys():
+    #    bmus[ DB.relations[k]] = k
     dbq_traj = dbq_traj[bmus,:] # expand over BMUs
     outputT   = args.output.rsplit('.', 1)[0]
 
