@@ -83,7 +83,7 @@ class DBH():
         self.DBq.append( x)
         if hasattr( self, 'Pes') and H == 'compute':
             H = self.Pes.hessian( x, **pes_args)
-        if H is not None:
+        elif H is not None:
             self.DBH.append( H)
             
     def createDB( self, data, thr=5.0, dist_measure='th', dohess=None, **pes_args):
