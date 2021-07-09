@@ -118,6 +118,7 @@ for a thorough list of the arguments
 
 * **Michele Gandolfi** 
 * **Michele Ceotto**
+
 For more information about the authors and the research group visit our website
 [Ceotto Group](https://sites.unimi.it/ceotto/)
 
