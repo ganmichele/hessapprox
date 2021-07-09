@@ -14,6 +14,7 @@ article:**
 1. [Installation requirements](#Installation-requirements)
 2. [Testing](#Testing)
 3. [Programs usage](#Programs-usage)
+4. [Authors](#Authors)
 
 ----
 
@@ -112,3 +113,11 @@ It outputs the hessian matrices as a space separated values file. Run
 ./Bofill_fill_in_H.py --help
 ```
 for a thorough list of the arguments
+
+## Authors
+
+* **Michele Gandolfi** 
+* **Michele Ceotto**
+For more information about the authors and the research group visit our website
+[Ceotto Group](https://sites.unimi.it/ceotto/)
+

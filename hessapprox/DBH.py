@@ -1,6 +1,12 @@
 #!/usr/bin/env python
 """
-DBH method for Hessian matrix approximation along MD trajectories
+Hessian Approximation Methods. Full notice in LICENSE file
+Copyright (C) 2021 Michele Gandolfi, Michele Ceotto
+
+DBH method for Hessian matrix approximation along MD trajectories.
+For reference see the following articles:
+Conte R, Gabas F, Botti G, Zhuang Y, Ceotto M J. Chem. Phys. 150, 244118 (2019)
+Gandolfi M, Ceotto M ... (minor modification of the original method)
 
 Michele Gandolfi 2021
 """

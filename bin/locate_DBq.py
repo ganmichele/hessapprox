@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 """
+Hessian Approximation Methods. Full notice in LICENSE file
+Copyright (C) 2021 Michele Gandolfi, Michele Ceotto
+
 Locate positions to compute the Hessian matrix given a trajectory
 with DBH method explained in:
 Conte R, Gabas F, Botti G, Zhuang Y, Ceotto M J. Chem. Phys. 150, 244118 (2019)

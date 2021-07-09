@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 """
+Hessian Approximation Methods. Full notice in LICENSE file
+Copyright (C) 2021 Michele Gandolfi, Michele Ceotto
+
 Read write and interpret coordinates files in xyz format
 
 Michele Gandolfi 2021

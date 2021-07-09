@@ -1,11 +1,14 @@
 #!/usr/bin/env python
 """
+Hessian Approximation Methods. Full notice in LICENSE file
+Copyright (C) 2021 Michele Gandolfi, Michele Ceotto
+
 Update Hessian matrix according to Bofill's method.
 
-as explained in
+For the method see the following article:
 H Wu, M Rahman, J Wang, U Louderaj, W L Hase, and Y Zhuang. J. Chem. Phys. 133, 074101 (2010) 
 
-This code was developed for the work in 
+For the code please cite:
 Gandolfi M, Ceotto M.  ...
 
 Michele Gandolfi 2021

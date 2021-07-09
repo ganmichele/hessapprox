@@ -1,3 +1,6 @@
+! Hessian Approximation Methods. Full notice in LICENSE file
+! Copyright (C) 2021 Michele Gandolfi, Michele Ceotto
+
 !======================================================================!
  subroutine calc_distance( na, m, nb, xa, xb, Dmat, same, dist_measure)!
 !                                                                      !

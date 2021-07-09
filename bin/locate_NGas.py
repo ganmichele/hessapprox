@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 """
+Hessian Approximation Methods. Full notice in LICENSE file
+Copyright (C) 2021 Michele Gandolfi, Michele Ceotto
+
 Locate optimal positions to compute the Hessian matrix given a trajectory
 using the NGas method explained in
 ...

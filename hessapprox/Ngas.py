@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 """
-NGas method explained in ...
+Hessian Approximation Methods. Full notice in LICENSE file
+Copyright (C) 2021 Michele Gandolfi, Michele Ceotto
+
+NGas method as explained in ...
 
 Michele Gandolfi 2021
 """
