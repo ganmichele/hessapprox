@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-Ngas and Self-Organizing Maps (SOMs)
+NGas method explained in ...
 
 Michele Gandolfi 2021
 """
@@ -105,6 +105,12 @@ class ngas:
     def load_map( self, weightfile, time=1):
         """
         Read pretrained Ngas from text file
+        The scaling method & parameters must be added by the user as
+        self.scale_param['method'] = ..
+        self.scale_param['min'   ] = ..
+        self.scale_param['max'   ] = ..
+        self.scale_param['mean'  ] = ..
+        self.scale_param['var'   ] = ..
         """
         self.weights = np.genfromtxt( weightfile)
         self.num_neurons, self.n_var = self.weights.shape
@@ -231,9 +237,8 @@ class ngas:
 
     def complete( self):
         """
-        Complete training by moving neurons on top of trajectory points, so
-        that the jacobians can be computed on the original trajectory.
-        Move neurons to nearest BMUs
+        Complete training by moving neurons on top of trajectory points:
+        move neurons to nearest BMUs
         """
         self.get_BMUs( self.train_data, reverse=True, output=False)
         for i, e in enumerate( self.BMU):
@@ -290,7 +295,8 @@ class ngas:
             for i, j in enumerate( xarg):
                 xj = data_tmp[j]
                 neur += alpha * np.exp( -i / lamb ) * ( xj - neur )
-
+        if self.recenter_always:
+            self.recenter_neurons()
 
     def calc_deltas( self, single_point=None):
         """
@@ -332,26 +338,26 @@ class ngas:
         if self.recenter_always:
             self.recenter_neurons( self)
 
-    def run_epoch( self):
-        """
-        Run one training epoch
-        """
-        if not hasattr( self, 'train_data'):
-            print( 'You must input training data before start training')
-            return
-        if not hasattr( self, 'weights'):
-            print( 'You must initialize the weights before start training')
-            return
-        if not hasattr( self, 'n_samples'):
-            self.n_samples, self.n_var = self.train_data.shape
-
-        self.epochs = 1
-        self._nd_dist = batch_distance( self.weights, self.train_data, self.distance_type )
-        #self._nn_dist = batch_distance( self.weights, self.weights, self.distance_type )
-        #self.get_BMUs()
-        self.calc_deltas()
-        self.update_net()
-        self._time += 1
+#    def run_epoch( self):
+#        """
+#        Run one training epoch
+#        """
+#        if not hasattr( self, 'train_data'):
+#            print( 'You must input training data before start training')
+#            return
+#        if not hasattr( self, 'weights'):
+#            print( 'You must initialize the weights before start training')
+#            return
+#        if not hasattr( self, 'n_samples'):
+#            self.n_samples, self.n_var = self.train_data.shape
+#
+#        self.epochs = 1
+#        self._nd_dist = batch_distance( self.weights, self.train_data, self.distance_type )
+#        #self._nn_dist = batch_distance( self.weights, self.weights, self.distance_type )
+#        #self.get_BMUs()
+#        self.calc_deltas()
+#        self.update_net()
+#        self._time += 1
 
     def reset_time( self):
         """
@@ -362,8 +368,8 @@ class ngas:
             
     def _initialize_net( self, init_method='data'):
         """
-        Initialize the map, either randomly, sampling from PCA subspace
-        (not yet done) or on random trajectory points, or ...
+        Initialize the map, either randomly, on random trajectory points,
+        of equally spaced trajectory points (default)
         """
         if not hasattr( self, 'init_method'):
             self.init_method = init_method
@@ -397,11 +403,6 @@ class ngas:
             print( 'PCA initialization not implemented yet, using data instead ..')
             self.init_method = 'data'
             self._initialize_net()
-            #u, s, vh = np.linalg.svd( self.train_data.T)
-            #weights  = np.random.rand( self.num_neurons, self.n_var )
-            #sample_plane = np.cross( u[index[0]], u[index[1]] )
-            # find a way to sample this plane to get initial weights
-            #self.weights = ...
         else:
             self.init_method = 'data'
             print( 'Initialization method not recognized. Using "data" method')
@@ -410,8 +411,8 @@ class ngas:
 
     def get_BMUs( self, xin, reverse=False, output=True, indoutput=True):
         """
-        Pass an array of data points in the gas coordinates.
-        Return gas' Best Mathcing Unit for each data point.
+        Pass an array of data points in the Ngas coordinates.
+        Return Ngas' Best Mathcing Unit for each data point.
         BMU is the closest neuron (Euclidean distance).
         If 'reverse' argument is passed, returns the input point closest to the
         neurons.

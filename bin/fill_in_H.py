@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 """
 Use Hessian update scheme to fill in an incomplete list of
-Hessian matrix along a MD simulation using the NGas method
-explained in
-...
+Hessian matrix along a MD simulation using Bofill method, 
+as explained in
+H Wu, M Rahman, J Wang, U Louderaj, W L Hase, and Y Zhuang. J. Chem. Phys. 133, 074101 (2010) 
 
 Michele Gandolfi 2021
 """

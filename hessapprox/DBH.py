@@ -47,10 +47,9 @@ class DBH():
     Hessian DataBase (DBH) class
     
     METHODS:
-    self.createDB( data, thr)
-    self.updateDB( data)
-    self.readDB( x)
-    self._inDB( x)
+    self.createDB
+    self.updateDB
+    self.update_relations
     """
     def __init__( self, Pes=None):
         """
@@ -61,6 +60,34 @@ class DBH():
         self.relations = {}
         if Pes is not None:
             self.Pes = Pes
+
+    def createDB(  self, data
+                  ,thr=5.0
+                  ,dist_measure='th'
+                  ,dohess=None
+                  ,bestrel=True
+                  ,**pes_args):
+        """
+        Create the DB given the data array and threshold thr.
+        """
+        self.data_input = data
+        self.thr = thr
+        self.dist_measure = dist_measure
+        if self.dist_measure[:2] == 'cb':
+            self.p = 1
+        elif self.dist_measure[:2] == 'eu':
+            self.p = 2
+        elif self.dist_measure[:2] == 'th':
+            self.p = -1 if 'scipy' not in sys.modules else np.infty
+        else: # assuming theta (minkowski p=infty distance)
+            self.p = -1 if 'scipy' not in sys.modules else np.infty
+
+        for xid, x in enumerate( data):
+            self.updateDB( x, xid, H=dohess, **pes_args)
+
+        if bestrel:
+            self.update_relations()
+
 
     def _inDB( self, x):
         """
@@ -77,9 +104,14 @@ class DBH():
         else:
             return False
 
-    def updateDB( self, x, xid=0, H=None, **pes_args):
+
+    def updateDB( self, x, xid, H=None, **pes_args):
         """
-        Update DBq and, possibly DBH
+        Update DBq and, possibly DBH if H is passed
+        xid is the index for the trajectory entry x.
+        If H=='compute' and the Pes attribute was passed, the
+        Hessian matrix is computed on-the-fly (assuming that Pes
+        computes the hessian with the 'hessian' method).
         """
         if not self._inDB( x):
             self.relations[len( self.DBq)] = [xid,]
@@ -91,40 +123,17 @@ class DBH():
         else:
             self.relations[self._who].append( xid)
             
-    def createDB(  self, data
-                  ,thr=5.0
-                  ,dist_measure='th'
-                  ,dohess=None
-                  ,bestrel=True
-                  ,**pes_args):
-        """
-        Fill in the DB all the geometries so that none is further than "thr"
-        from all points in the database
-        """
-        self.data_input = data
-        self.thr = thr
-        self.dist_measure = dist_measure
-        if self.dist_measure[:2] == 'cb':
-            self.p = 1
-        elif self.dist_measure[:2] == 'eu':
-            self.p = 2
-        elif self.dist_measure[:2] == 'th':
-            self.p = -1 if 'scipy' not in sys.modules else np.infty
-        else: # assuming theta (minkowski p=infty distance)
-            self.p = -1 if 'scipy' not in sys.modules else np.infty
 
-        for xid, x in enumerate( data):
-            self.updateDB( x, xid=xid, H=dohess, **pes_args)
-
-        if bestrel:
-            self.update_relations()
-
-    def update_relations( self):
+    def update_relations( self, alldata=None):
         """
-        Wipe down current relations and create new ones
+        Wipe down current relations and create new ones.
+        To be used after the last update.
+        Optional argument alldata contains the configurations of you trajectory.
+        If alldata is not passed, self.data_input will be used.
         """
-        #dist_q_DBq = set_set_distance( np.array( self.DBq), 
-        #                               np.array( self.data_input))
+        if alldata:
+            self.data_input = alldata
+
         self.relations = {k: [] for k in range( len( self.DBq))}
 
         if 'scipy' in sys.modules:

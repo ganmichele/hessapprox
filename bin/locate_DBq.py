@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 """
 Locate positions to compute the Hessian matrix given a trajectory
-with DBH method as explained in
-...
+with DBH method explained in:
+Conte R, Gabas F, Botti G, Zhuang Y, Ceotto M J. Chem. Phys. 150, 244118 (2019)
+Gandolfi M, Ceotto M ... (minor modification of the original method)
 
 Michele Gandolfi 2021
 """
@@ -34,7 +35,7 @@ parser = argparse.ArgumentParser(
         epilog='Further arguments can be given in a file using +FILENAME')
 
 # TRAJECTORY INPUT
-parser.add_argument( 'trajectory' ,help='trajectory positions as a (multiple) space-separated values file (one position per line)')
+parser.add_argument( 'trajectory' ,help='trajectory positions as a (multiple) space-separated values file (one position per line). Or see xyz flag')
 
 # DBH PARAMETER
 parser.add_argument( '-R', '--rho', default=1.0, help='sphere radius', type=float)
@@ -45,9 +46,9 @@ parser.add_argument( '--quick'  , action='store_true',help='skip final relations
 parser.add_argument( '-i', '--indexes'   ,default=['all'] ,nargs='+' ,help='indexes of trajectory to consider')
 parser.add_argument( '-V','--var_indexes',default=['all'] ,nargs='+' ,help='indexes of variables (second axis) to consider')
 
-# FILE NAMES, FORMATS AND TYPE OF OUTPUT
+# OUTPUTS & FORMATS
 parser.add_argument( '-O', '--output', default='DBq_trajectory', help='output file with DBq locations')
-parser.add_argument( '-T', '--DBq_traj',action='store_true', help='outputs the approximate trajectory, instead of the DBq only only')
+parser.add_argument( '-T', '--DBq_traj',action='store_true', help='outputs the approximate trajectory, not just the DBq locations')
 parser.add_argument( '--xyz', action='store_true' , help='input trajectory file is in xyz format')
 
 args = parser.parse_args()
@@ -81,7 +82,7 @@ def _get_index_list( ind):
     return index
 
 
-# MORE PARSING OF OPTIONS
+# MORE PARSING
 index    = _get_index_list( args.indexes)
 varindex = _get_index_list( args.var_indexes)
 
@@ -127,16 +128,20 @@ else:
 bmus = np.zeros( len( xyz), dtype=int)
 for k in DB.relations.keys():
     bmus[DB.relations[k]] = int( k)
-np.savetxt( 'relations_DBq.dat', bmus, fmt='%i')
+
+with open( 'relations_DBq.dat', 'w') as f:
+    f.write( '# DBq-MDtraj relations. First index is 1 (not 0)\n')
+    f.write( '# trajID    DBqID\n')
+    for i, bmu in enumerate( bmus, start=1):
+        f.write( '{0}\t\t{1}\n'.format( i, bmu+1))
 
 if args.DBq_traj:
     # assign trajectory points to nearest DBq (Best Matching Unit or BMU):
-    #bmus = np.array( [e for l in DB.relations.values() for e in l])
     #bmus = np.zeros( len( xyz)).astype( int)
     #for k in DB.relations.keys():
     #    bmus[ DB.relations[k]] = k
     dbq_traj = dbq_traj[bmus,:] # expand over BMUs
-    outputT   = args.output.rsplit('.', 1)[0]
+    outputT  = args.output.rsplit('.', 1)[0]
 
     if args.xyz:
         dbq_traj = dbq_traj.reshape( -1, len( atoms), 3) # Cartesian shape

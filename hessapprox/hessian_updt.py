@@ -1,10 +1,14 @@
 #!/usr/bin/env python
 """
 Update Hessian matrix according to Bofill's method.
-Michele Gandolfi 2021
 
-as in
-Gandolfi M, Ceotto M. title . paper . 2021
+as explained in
+H Wu, M Rahman, J Wang, U Louderaj, W L Hase, and Y Zhuang. J. Chem. Phys. 133, 074101 (2010) 
+
+This code was developed for the work in 
+Gandolfi M, Ceotto M.  ...
+
+Michele Gandolfi 2021
 """
 
 import numpy as np

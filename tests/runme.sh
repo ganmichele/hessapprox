@@ -22,12 +22,6 @@ echo "Converting neurons to Cartesian.."
 
 ../bin/toCart.py  nm_water/dbq-traj.dat  nm_water/cnorm.dat  nm_water/mass.dat  nm_water/qrt.dat  cart_water/dbq_traj-cart.xyz
 
-# NGas with Cartesian coordinates (not recommanded but works ok)
-echo
-echo "******NGas FROM CARTESIAN (FOR TESTING PURPOSES ONLY)******"
-echo
-../bin/locate_NGas.py cart_water/h2o_traj.xyz --xyz -S cent -N 100 -O cart_water/neurons-cart -T
-
 echo 
 echo "You may compare cart_water/neurons_traj-cart.xyz, cart_water/dbq_traj-cart.xyz and cart_water/h2o_traj.xyz"
 echo 

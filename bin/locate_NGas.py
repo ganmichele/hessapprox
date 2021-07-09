@@ -158,9 +158,15 @@ if args.xyz:
 else:
     np.savetxt( args.output, ngas_traj)
 
+bmus = ngas.get_BMUs( ngas.train_data).astype( int)
+with open( 'relations_NGas.dat', 'w') as f:
+    f.write( '# neurons-MDtraj relations. First index is 1 (not 0)\n')
+    f.write( '# trajID    neuronID\n')
+    for i, bmu in enumerate( bmus, start=1):
+        f.write( '{0}\t\t{1}\n'.format( i, bmu+1))
+
 if args.neurons_traj:
     # assign trajectory points to nearest neuron (Best Matching Unit or BMU):
-    bmus      = ngas.get_BMUs( ngas.train_data)
     ngas_traj = ngas_traj[bmus,:] # expand over BMUs
     outputT   = args.output.rsplit('.', 1)[0]
 
