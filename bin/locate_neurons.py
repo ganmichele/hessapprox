@@ -36,7 +36,7 @@ parser = argparse.ArgumentParser(
         epilog='Further arguments can be given in a file using +FILENAME')
 
 # TRAJECTORY INPUT
-parser.add_argument( 'trajectory' ,help='trajectory positions as a (multiple) space-separated values file (one position per line)')
+parser.add_argument( 'trajectory' ,help='trajectory positions as a (multiple) space-separated values file (one position per line) or see the xyz flag')
 
 # NEURAL GAS PARAMETERS
 parser.add_argument( '-N', '--neurons'   ,default=100     ,help='number of neurons', type=int)
@@ -48,14 +48,14 @@ parser.add_argument( '--Alpha' , nargs=2 ,default=None    ,help='custom alpha in
 parser.add_argument( '--neighbors'       ,default=None    ,help='custom number of neighbors*lambda for approximation', type=int)
 parser.add_argument( '--dist'            ,default=None    ,help='custom distance function (NOT YET IMPLEMENTED)')
 parser.add_argument( '--endon'           ,default='cent', choices=['traj', 'cent'] ,help='once the optimization is done, force the neurons to be on top of the trajectory ("traj", NOT RECOMMENDED) or at their center of mass ("cent")')
-parser.add_argument( '--recenter_always' ,action='store_true' ,help='recenter neurons to their trajectory "center of mass" (NOT RECOMMENDED)')
+parser.add_argument( '--recenter_always' ,action='store_true' ,help='recenter neurons to their trajectory "center of mass" every epoch (NOT RECOMMENDED)')
 parser.add_argument( '--moved_dist'      ,action='store_true' ,help='compute how much neurons have moved from their initial positions (in neurons space)')
 
 # WHICH POINTS AND DEGREES OF FREEDOM YOU WANT TO CONSIDER
 parser.add_argument( '-i', '--indexes'   ,default=['all'] ,nargs='+' ,help='indexes of trajectory to consider')
 parser.add_argument( '-V','--var_indexes',default=['all'] ,nargs='+' ,help='indexes of variables (second axis) to consider')
 
-# FILE NAMES, FORMATS AND TYPE OF OUTPUT
+# OUTPUTS & FORMATS
 parser.add_argument( '-O', '--output', default='neurons', help='output file with neurons locations')
 parser.add_argument( '-T', '--neurons_traj',action='store_true', help='outputs the neural gas approximate trajectory, instead of the neurons only')
 parser.add_argument( '--xyz'         ,action='store_true' , help='input trajectory file is in xyz format')
@@ -90,7 +90,7 @@ def _get_index_list( ind):
 
     return index
 
-
+# MORE PARSING
 index    = _get_index_list( args.indexes)
 varindex = _get_index_list( args.var_indexes)
 
@@ -125,6 +125,7 @@ if args.Alpha is not None:
 if args.neighbors is not None:
     kwargs.update( {'nk' : int( args.neighbors)})
 
+# NGAS
 ngas = ngas( nn=args.neurons, **kwargs)
 
 ## if you have already trained the network and saved it you can load it with
@@ -145,7 +146,7 @@ end = time()
 print( 'training time = {0}'.format( end-start))
 
 if args.moved_dist:
-    print( 'Doing optimization the neurons have moved: {0}'.format( ngas.moved_dist))
+    print( 'In optimization the neurons have moved: {0}'.format( ngas.moved_dist))
 
 ngas_traj = ngas.scale_back() # if no arguments then neurons are scaled back
 ngas_traj = np.hstack( (ngas_traj, stationary_coor[:ngas_traj.shape[0],:]))
