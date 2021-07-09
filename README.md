@@ -1,8 +1,12 @@
 # Hessian approximation methods for molecular dynamics simulations
 this code implements:</br>
 the NGas method introduced in ...</br>
-the DBH method introduced in ...</br>
-the hessian update methods ...</br>
+the DBH method introduced in Conte R, Gabas F, Botti G, Zhuang Y, Ceotto M J. Chem. Phys. 150, 244118 (2019)</br>
+the hessian update methods described in H Wu, M Rahman, J Wang, U Louderaj, W L Hase, and Y Zhuang. J. Chem. Phys. 133, 074101 (2010) 
+
+If you use the codes provided here or parts of them, please cite the following
+article:
+...
 
 ----
 
@@ -59,6 +63,7 @@ To test our programs you do not have to add hessapprox to your PYTHONPATH:
 cd tests/
 ./runme.sh
 ./runme2.sh
+./runme3.sh
 ./movie.py
 ```
 runme.sh writes the trajectory files
@@ -71,23 +76,28 @@ You may want to visualize them together (for instance with VMD).
 runme2.sh writes the approximate hessian matrix in
 cart_water/h2o_approx.dat
 
-to run movie.py you need the optional packages scipy and matplotlib.
-It generates a movie that shows a NGas optimization for H2O in 2 dimensions.
+runme3.sh tests the NGas method on Cartesian inputs.
+
+To run movie.py you need the optional packages scipy and matplotlib.
+It generates a short movie that shows a NGas optimization for H2O in 2 
+dimensions.
 
 ## Programs usage
 In bin you can find the high level programs:
-- locate_neurons.py
+- locate_NGas.py
 - locate_DBq.py
 - fill_in_H.py
 
-locate_neurons and locate_DBq take as input a space-separated values
-file of configurations and output the optimal configurations obtained by
-the NGas and DBH methods respectively.
-Optionally, if you your configurations are in Cartesian coordinates, you
-you can pass the --xyz flag.
+locate_NGas and locate_DBq take as input a space-separated values
+file of configurations and outputs the optimal configurations obtained by
+the NGas and DBH methods respectively, as well as a file (called
+relations_NGas.dat / relations_DBq.dat) that says which trajectory geometry
+belongs to which neuron / DBq.
+Optionally, if you your input configurations are in Cartesian coordinates,
+you you can pass the --xyz flag.
 Run 
 ```bash
-./locate_neurons.py --help
+./locate_NGas.py --help
 ```
 or 
 ```bash
