@@ -46,7 +46,7 @@ parser.add_argument( '-I', '--init'      ,default='data'  ,choices=['data', 'ran
 parser.add_argument( '--Lambda', nargs=2 ,default=None    ,help='custom lambda initial and final values')
 parser.add_argument( '--Alpha' , nargs=2 ,default=None    ,help='custom alpha initial and final values')
 parser.add_argument( '--neighbors'       ,default=None    ,help='custom number of neighbors*lambda for approximation', type=int)
-parser.add_argument( '--dist'            ,default=None    ,help='custom distance function (NOT YET IMPLEMENTED)')
+#parser.add_argument( '--dist'            ,default=None    ,help='custom distance function (NOT YET IMPLEMENTED)')
 parser.add_argument( '--endon'           ,default='cent', choices=['traj', 'cent'] ,help='once the optimization is done, force the neurons to be on top of the trajectory ("traj", NOT RECOMMENDED) or at their center of mass ("cent")')
 parser.add_argument( '--recenter_always' ,action='store_true' ,help='recenter neurons to their trajectory "center of mass" every epoch (NOT RECOMMENDED)')
 parser.add_argument( '--moved_dist'      ,action='store_true' ,help='compute how much neurons have moved from their initial positions (in neurons space)')

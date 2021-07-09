@@ -28,7 +28,9 @@ except Exception as e1:
 
 parser = argparse.ArgumentParser(
         description="""
-                    Locate positions to compute the Hessian matrix, given a trajectory with DBH method
+                    Locate positions to compute the Hessian matrix given a trajectory
+                    with DBH method explained in:
+                    Conte R, Gabas F, Botti G, Zhuang Y, Ceotto M J. Chem. Phys. 150, 244118 (2019)
                     """,
         formatter_class= argparse.ArgumentDefaultsHelpFormatter,
         fromfile_prefix_chars='+',
@@ -39,7 +41,7 @@ parser.add_argument( 'trajectory' ,help='trajectory positions as a (multiple) sp
 
 # DBH PARAMETER
 parser.add_argument( '-R', '--rho', default=1.0, help='sphere radius', type=float)
-parser.add_argument( '--dist'     , default=None,help='custom distance function (NOT YET IMPLEMENTED)')
+#parser.add_argument( '--dist'     , default=None,help='custom distance function (NOT YET IMPLEMENTED)')
 parser.add_argument( '--quick'  , action='store_true',help='skip final relations update (slightly faster but less accurate)')
 
 # WHICH POINTS AND DEGREES OF FREEDOM YOU WANT TO CONSIDER

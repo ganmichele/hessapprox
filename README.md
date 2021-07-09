@@ -1,8 +1,8 @@
 # Hessian approximation methods for molecular dynamics simulations
 this code implements:</br>
-the NGas method introduced in ...</br>
-the DBH method introduced in Conte R, Gabas F, Botti G, Zhuang Y, Ceotto M J. Chem. Phys. 150, 244118 (2019)</br>
-the hessian update methods described in H Wu, M Rahman, J Wang, U Louderaj, W L Hase, and Y Zhuang. J. Chem. Phys. 133, 074101 (2010) 
+- the NGas method introduced in ...</br>
+- the DBH method introduced in Conte R, Gabas F, Botti G, Zhuang Y, Ceotto M J. Chem. Phys. 150, 244118 (2019)</br>
+- the hessian update methods described in H Wu, M Rahman, J Wang, U Louderaj, W L Hase, and Y Zhuang. J. Chem. Phys. 133, 074101 (2010) 
 
 If you use the codes provided here or parts of them, please cite the following
 article:
@@ -40,7 +40,7 @@ make -f Makefile_calc_dist install
 ```
 
 ### (Optional) Distance matrix with scipy
-If you do not wish to use the custom distance calculator you should
+If you do not wish to use our Fortran distance calculator you should
 install scipy with your favourite manager for Python modules.
 The scipy and fortran sources are comparable in computational speed.
 If none is available the distances would be computed naively and 
@@ -86,10 +86,10 @@ dimensions.
 In bin you can find the high level programs:
 - locate_NGas.py
 - locate_DBq.py
-- fill_in_H.py
+- Bofill_fill_in_H.py
 
 locate_NGas and locate_DBq take as input a space-separated values
-file of configurations and outputs the optimal configurations obtained by
+file of configurations. They output the optimal configurations obtained by
 the NGas and DBH methods respectively, as well as a file (called
 relations_NGas.dat / relations_DBq.dat) that says which trajectory geometry
 belongs to which neuron / DBq.
@@ -105,10 +105,10 @@ or
 ```
 for a thorough list of optional arguments.
 
-fill_in_H takes as input three space-separated values files, containing
-respectively: the configurations, gradients and partially filled hessian.
+Bofill_fill_in_H takes as input three space-separated values files, containing
+respectively: the configurations, gradients and incomplete list of hessians.
 It outputs the hessian matrices as a space separated values file. Run
 ```bash
-./fill_in_H.py --help
+./Bofill_fill_in_H.py --help
 ```
 for a thorough list of the arguments

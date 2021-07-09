@@ -26,8 +26,10 @@ except Exception as e1:
 
 parser = argparse.ArgumentParser(
         description="""
-                    Locate positions to compute the Hessian matrix, given a trajectory
-                    using the NGas method explained in
+                    Use Hessian update scheme to fill in an incomplete list of
+                    Hessian matrix along a MD simulation using Bofill method, 
+                    as explained in
+                    H Wu, M Rahman, J Wang, U Louderaj, W L Hase, and Y Zhuang. J. Chem. Phys. 133, 074101 (2010) 
                     """,
         formatter_class= argparse.ArgumentDefaultsHelpFormatter,
         fromfile_prefix_chars='+',
@@ -39,10 +41,10 @@ parser.add_argument( '-G', '--grad' ,help='gradients as a (multiple) space-separ
 parser.add_argument( '-H', '--hess' ,help='incomplete list of hessians as a (multiple) space-separated values file (one hessian per line)', required=True)
 
 # HESSIAN UPDATE ARGUMENTS
-parser.add_argument( '-N', '--nevals', default=10, help='number of predicted hessians', type=int)
+parser.add_argument( '-N', '--nevals', default=10, help='number of hessians to predict, for each given', type=int)
 parser.add_argument( '-L', '--lambd'             , help='Lambda value. Leave empty for Bofill optimal value', type=float)
 
-# FILE NAMES, FORMATS AND TYPE OF OUTPUT
+# OUTPUT & FORMATS
 parser.add_argument( '-O', '--output', default='hess_approx.dat', help='output file with DBq locations')
 parser.add_argument( '--xyz'         ,action='store_true' , help='input files are in xyz format')
 
