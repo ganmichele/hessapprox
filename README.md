@@ -53,7 +53,7 @@ The high level programs are in ./bin
 You may want to add the hessapprox directory to your PYTHONPATH. For
 instance if your shell is bash:
 ```bash
-echo '$PYTHONPATH/the/path/to/hessapprox/' >> ~/.bashrc
+echo "export PYTHONPATH=${PYTHONPATH}:/the/path/to/hessapprox/" >> ~/.bashrc
 source ~/.bashrc
 ```
 or install the modules in a location available to your PYTHONPATH.
