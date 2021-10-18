@@ -5,8 +5,8 @@ this code implements:</br>
 - the hessian update methods described in H Wu, M Rahman, J Wang, U Louderaj, W L Hase, and Y Zhuang. J. Chem. Phys. 133, 074101 (2010) 
 
 **If you use the codes provided here or parts of them, please cite the following
-article:**
-...
+article:**</br>
+Gandolfi M, Ceotto M J. Chem. Theory Comput. (2021)</br>
 
 ----
 
