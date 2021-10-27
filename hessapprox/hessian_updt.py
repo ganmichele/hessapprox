@@ -8,8 +8,8 @@ Update Hessian matrix according to Bofill's method.
 For the method see the following article:
 H Wu, M Rahman, J Wang, U Louderaj, W L Hase, and Y Zhuang. J. Chem. Phys. 133, 074101 (2010) 
 
-For the code please cite:
-Gandolfi M, Ceotto M.  ...
+For this implementation please cite:
+Gandolfi M, Ceotto M, J. Chem. Theory Comput. (2021)
 
 Michele Gandolfi 2021
 """

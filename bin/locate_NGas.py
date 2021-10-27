@@ -5,6 +5,7 @@ Copyright (C) 2021 Michele Gandolfi, Michele Ceotto
 
 Locate optimal positions to compute the Hessian matrix given a trajectory
 using the NGas method explained in
+Gandolfi M, Ceotto M, J. Chem. Theory Comput. (2021)
 ...
 
 Michele Gandolfi 2021

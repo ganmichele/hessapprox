@@ -3,7 +3,8 @@
 Hessian Approximation Methods. Full notice in LICENSE file
 Copyright (C) 2021 Michele Gandolfi, Michele Ceotto
 
-NGas method as explained in ...
+NGas method as explained in
+Gandolfi M, Ceotto M, J. Chem. Theory Comput. (2021)
 
 Michele Gandolfi 2021
 """

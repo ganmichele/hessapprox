@@ -6,7 +6,7 @@ Copyright (C) 2021 Michele Gandolfi, Michele Ceotto
 Locate positions to compute the Hessian matrix given a trajectory
 with DBH method explained in:
 Conte R, Gabas F, Botti G, Zhuang Y, Ceotto M J. Chem. Phys. 150, 244118 (2019)
-Gandolfi M, Ceotto M ... (minor modification of the original method)
+Gandolfi M, Ceotto M, J. Chem. Theory Comput. (2021) (minor modification of the original method)
 
 Michele Gandolfi 2021
 """
