@@ -1,6 +1,6 @@
 # Hessian approximation methods for molecular dynamics simulations
 this code implements:</br>
-- the NGas method introduced in Gandolfi M, Ceotto M J. Chem. Theory Comput. 153, 204104 (2021)</br>
+- the NGas method introduced in Gandolfi M, Ceotto M J. Chem. Theory Comput. 17, 6733-6746 (2021)</br>
 - the DBH method introduced in Conte R, Gabas F, Botti G, Zhuang Y, Ceotto M J. Chem. Phys. 150, 244118 (2019)</br>
 - the hessian update methods described in H Wu, M Rahman, J Wang, U Louderaj, W L Hase, and Y Zhuang. J. Chem. Phys. 133, 074101 (2010) 
 
